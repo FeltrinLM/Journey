@@ -54,24 +54,26 @@ public class ColecaoDAO {
         return null;
     }
 
-    public boolean inserir(Colecao c) {
+    public boolean inserir(Colecao colecao) {
         String sql = "INSERT INTO Colecao (nome, data_inicio, data_fim) VALUES (?, ?, ?)";
-        try (Connection con = ConexaoBanco.getConexao();
-             PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            stmt.setString(1, c.getNome());
-            stmt.setString(2, c.getData_inicio());
+        try (Connection conn = ConexaoBanco.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            if (c.getData_fim() == null || c.getData_fim().isEmpty()) {
+            stmt.setString(1, colecao.getNome());
+            stmt.setDate(2, java.sql.Date.valueOf(colecao.getData_inicio()));
+
+            if (colecao.getData_fim() == null || colecao.getData_fim().isEmpty()) {
                 stmt.setNull(3, java.sql.Types.DATE);
             } else {
-                stmt.setString(3, c.getData_fim());
+                stmt.setDate(3, java.sql.Date.valueOf(colecao.getData_fim()));
             }
 
             return stmt.executeUpdate() > 0;
 
         } catch (Exception e) {
             System.err.println("Erro ao inserir coleção: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }

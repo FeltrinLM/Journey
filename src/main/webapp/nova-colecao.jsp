@@ -7,8 +7,7 @@
 <body>
 <h2>Cadastrar Nova Coleção</h2>
 
-<form method="post" action="teste-nova-colecao">
-
+<form method="post" action="nova-colecao">
     Nome: <input type="text" name="nome" required><br>
     Data Início: <input type="date" name="data_inicio" required><br>
     Data Fim: <input type="date" name="data_fim"><br><br>
