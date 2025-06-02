@@ -84,22 +84,22 @@ public class ColecaoDAO {
 
             stmt.setString(1, c.getNome());
             stmt.setString(2, c.getData_inicio());
-            stmt.setString(3, c.getData_fim());
+
+            if (c.getData_fim() == null || c.getData_fim().isEmpty()) {
+                stmt.setNull(3, java.sql.Types.DATE);
+            } else {
+                stmt.setString(3, c.getData_fim());
+            }
+
             stmt.setInt(4, c.getId_colecao());
 
-            System.out.println(">> Atualizando coleção:");
-            System.out.println("ID: " + c.getId_colecao());
-            System.out.println("Nome: " + c.getNome());
-
-            int linhas = stmt.executeUpdate();
-            System.out.println("Linhas afetadas: " + linhas);
-
-            return linhas > 0;
+            return stmt.executeUpdate() > 0;
         } catch (Exception e) {
             System.err.println("Erro ao atualizar coleção: " + e.getMessage());
             return false;
         }
     }
+
 
 
 

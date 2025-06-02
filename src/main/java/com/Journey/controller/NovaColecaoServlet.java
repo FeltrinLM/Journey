@@ -7,7 +7,6 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.ServletException;
 import java.io.IOException;
 
-@WebServlet("/teste-nova-colecao")
 
 public class NovaColecaoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

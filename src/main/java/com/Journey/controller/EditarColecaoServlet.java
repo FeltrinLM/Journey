@@ -7,7 +7,6 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.ServletException;
 import java.io.IOException;
 
-@WebServlet("/editar-colecao")
 public class EditarColecaoServlet extends HttpServlet {
 
     // Mostra a tela de edição

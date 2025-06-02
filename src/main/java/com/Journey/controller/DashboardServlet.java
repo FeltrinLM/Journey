@@ -2,8 +2,10 @@ package com.Journey.controller;
 
 import com.Journey.DAO.PecaDAO;
 import com.Journey.DAO.ColecaoDAO;
+import com.Journey.DAO.GerenteDAO;
 import com.Journey.model.Peca;
 import com.Journey.model.Colecao;
+import com.Journey.model.Gerente;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,16 +33,17 @@ public class DashboardServlet extends HttpServlet {
         try {
             List<Peca> pecas = new PecaDAO().listarPecas();
             List<Colecao> colecoes = new ColecaoDAO().listar();
+            List<Gerente> usuarios = new GerenteDAO().listar();
 
             request.setAttribute("pecas", pecas);
             request.setAttribute("colecoes", colecoes);
+            request.setAttribute("usuarios", usuarios);
 
             request.getRequestDispatcher("dashboard.jsp").forward(request, response);
 
         } catch (Exception e) {
-            e.printStackTrace(); // AJUDA a ver o erro no console/log
-            throw new ServletException("Erro ao carregar dados", e); // para ver a falha real
-
+            e.printStackTrace();
+            throw new ServletException("Erro ao carregar dados para o dashboard.", e);
         }
     }
 
@@ -50,14 +53,22 @@ public class DashboardServlet extends HttpServlet {
 
         String acao = request.getParameter("acao");
 
-        if ("excluir".equals(acao)) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            new PecaDAO().removerPeca(id);
-        } else if ("excluir-colecao".equals(acao)) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            new ColecaoDAO().excluir(id);
-        }
+        try {
+            if ("excluir".equals(acao)) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                new PecaDAO().removerPeca(id);
 
-        doGet(request, response);
+            } else if ("excluir-colecao".equals(acao)) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                new ColecaoDAO().excluir(id);
+            }
+
+            // Redireciona para atualizar a tela com os dados
+            response.sendRedirect("dashboard");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ServletException("Erro ao processar ação no dashboard.", e);
+        }
     }
 }

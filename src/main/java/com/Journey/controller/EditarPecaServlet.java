@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/editar-peca")
 public class EditarPecaServlet extends HttpServlet {
 
     @Override

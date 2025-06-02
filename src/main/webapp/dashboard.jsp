@@ -25,12 +25,6 @@
 <h2>Bem-vindo, <%= usuario.getNome() %></h2>
 <h3>Lista de Peças</h3>
 
-<!-- Botão Adicionar Nova Peça - FORA da tabela -->
-<form action="nova-peca.jsp" method="get">
-    <input type="submit" value="Adicionar nova peça"
-           style="background-color: green; color: white; padding: 10px 15px; border: none; cursor: pointer;">
-</form>
-
 <br>
 
 <table border="1">
@@ -64,6 +58,11 @@
     </tr>
     <% } %>
 </table>
+<!-- Botão Adicionar Nova Peça - FORA da tabela -->
+<form action="nova-peca.jsp" method="get">
+    <input type="submit" value="Adicionar nova peça"
+           style="background-color: green; color: white; padding: 10px 15px; border: none; cursor: pointer;">
+</form>
 <!-- Adicione abaixo da tabela de peças -->
 <br><br>
 <h3>Lista de Coleções</h3>
@@ -107,6 +106,31 @@
     <input type="submit" value="Cadastrar nova coleção"
            style="background-color: green; color: white; padding: 10px 15px; border: none; cursor: pointer;">
 </form>
+
+<h3>Lista de Usuários</h3>
+<table border="1">
+    <tr>
+        <th>Nome</th>
+        <th>Email</th>
+    </tr>
+    <%
+        List<Gerente> usuarios = (List<Gerente>) request.getAttribute("usuarios");
+        for (Gerente g : usuarios) {
+    %>
+    <tr>
+        <td><%= g.getNome() %></td>
+        <td><%= g.getEmail() %></td>
+    </tr>
+    <% } %>
+</table>
+
+<br>
+<!-- Botão para cadastrar novo usuário -->
+<form action="usuario-form.jsp" method="get">
+    <input type="submit" value="Cadastrar novo usuário"
+           style="background-color: green; color: white; padding: 10px 15px; border: none; cursor: pointer;">
+</form>
+
 
 </body>
 </html>
