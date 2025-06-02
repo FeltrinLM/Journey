@@ -5,7 +5,7 @@
 </head>
 <body>
 <h2>Incluir novo usuário</h2>
-<form action="usuario" method="post">
+<form action="${pageContext.request.contextPath}/usuario" method="post">
     <label>Nome: <input type="text" name="nome" required /></label><br><br>
     <label>Email: <input type="text" name="email" required /></label><br><br>
     <label>Senha: <input type="password" name="senha" required /></label><br><br>
@@ -17,3 +17,4 @@
 <% } %>
 </body>
 </html>
+
