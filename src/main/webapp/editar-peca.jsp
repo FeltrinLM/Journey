@@ -27,7 +27,8 @@
     Cor: <input type="text" name="cor" value="<%= peca.getCor() %>" required><br>
     ID da Coleção: <input type="number" name="id_colecao" value="<%= peca.getId_colecao() %>" required><br><br>
 
-    <input type="submit" value="Salvar Alterações">
+    <input type="submit" value="Salvar Alterações
+        style="background-color: dodgerblue; color: white; padding: 8px 15px; border: none;">
 </form>
 
 <br>

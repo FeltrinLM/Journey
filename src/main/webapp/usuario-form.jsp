@@ -9,11 +9,13 @@
     <label>Nome: <input type="text" name="nome" required /></label><br><br>
     <label>Email: <input type="text" name="email" required /></label><br><br>
     <label>Senha: <input type="password" name="senha" required /></label><br><br>
-    <input type="submit" value="Cadastrar" />
+    <input type="submit" value="Cadastrar"
+           style="background-color: #008000; color: white; padding: 8px 15px; border: none;" />
 </form>
 
 <% if (request.getAttribute("mensagem") != null) { %>
 <p style="color: green;"><%= request.getAttribute("mensagem") %></p>
 <% } %>
+<a href="dashboard">Voltar</a>
 </body>
 </html>

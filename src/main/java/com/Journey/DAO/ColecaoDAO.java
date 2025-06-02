@@ -85,19 +85,34 @@ public class ColecaoDAO {
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
             stmt.setString(1, c.getNome());
-            stmt.setString(2, c.getData_inicio());
 
+            // Validar e converter data_inicio
+            if (c.getData_inicio() == null || c.getData_inicio().isEmpty()) {
+                throw new IllegalArgumentException("Data de início é obrigatória");
+            }
+            stmt.setDate(2, java.sql.Date.valueOf(c.getData_inicio()));
+
+            // Tratar data_fim (opcional)
             if (c.getData_fim() == null || c.getData_fim().isEmpty()) {
                 stmt.setNull(3, java.sql.Types.DATE);
             } else {
-                stmt.setString(3, c.getData_fim());
+                stmt.setDate(3, java.sql.Date.valueOf(c.getData_fim()));
             }
 
             stmt.setInt(4, c.getId_colecao());
 
-            return stmt.executeUpdate() > 0;
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected == 0) {
+                System.err.println("Nenhum registro foi atualizado - ID possivelmente não existe");
+            }
+            return rowsAffected > 0;
+
+        } catch (IllegalArgumentException e) {
+            System.err.println("Formato de data inválido: " + e.getMessage());
+            return false;
         } catch (Exception e) {
             System.err.println("Erro ao atualizar coleção: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
