@@ -1,11 +1,11 @@
 package com.Journey.DAO;
 
-import com.Journey.model.Gerente;
+import com.Journey.model.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GerenteDAO {
+public class UsuarioDAO {
 
     public boolean inserir(Gerente gerente) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO Gerente (nome, email, senha) VALUES (?, ?, ?)";

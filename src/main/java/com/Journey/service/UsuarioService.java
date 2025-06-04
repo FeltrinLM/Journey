@@ -6,8 +6,8 @@ import com.Journey.model.Gerente;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GerenteService {
-    private static final GerenteDAO dao = new GerenteDAO();
+public class UsuarioService {
+    private static final UsuarioDAO dao = new UsuarioDAO();
 
     public ArrayList<Gerente> listarGerentes() throws Exception {
         // dao.listar() retorna List<Gerente>. Convertendo para ArrayList:

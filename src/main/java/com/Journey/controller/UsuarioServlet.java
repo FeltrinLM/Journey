@@ -1,7 +1,7 @@
 package com.Journey.controller;
 
-import com.Journey.DAO.GerenteDAO;
-import com.Journey.model.Gerente;
+import com.Journey.DAO.UsuarioDAO;
+import com.Journey.model.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/usuario")
-public class GerenteServlet extends HttpServlet {
+public class UsuarioServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -1,20 +1,20 @@
 package com.Journey.model;
 
-public class Gerente {
+public class Usuario {
 
-    private int id_gerente;
+    private int id_usuario;
     private String senha;
     private String nome;
     private String email;
 
-    public Gerente(){}
+    public Usuario(){}
 
-    public int getId_gerente() {
-        return id_gerente;
+    public int getId_usuario() {
+        return id_usuario;
     }
 
-    public void setId_gerente(int id_gerente) {
-        this.id_gerente = id_gerente;
+    public void setid_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
 

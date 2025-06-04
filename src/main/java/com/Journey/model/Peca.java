@@ -2,10 +2,10 @@ package com.Journey.model;
 
 public class Peca {
     private int peca_id;
-    private int id_colecao;
-    private String modelo;
+    private String tipo;
     private String tamanho;
     private String cor;
+    private int quantidade;
 
     public Peca(){}
 
@@ -17,20 +17,12 @@ public class Peca {
         this.peca_id = peca_id;
     }
 
-    public int getId_colecao() {
-        return id_colecao;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setId_colecao(int id_gerente) {
-        this.id_colecao = id_gerente;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getTamanho() {
@@ -49,4 +41,11 @@ public class Peca {
         this.cor = cor;
     }
 
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
 }

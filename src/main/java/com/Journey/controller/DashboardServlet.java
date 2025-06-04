@@ -1,11 +1,13 @@
 package com.Journey.controller;
 
-import com.Journey.DAO.PecaDAO;
-import com.Journey.DAO.ColecaoDAO;
-import com.Journey.DAO.GerenteDAO;
 import com.Journey.model.Peca;
 import com.Journey.model.Colecao;
-import com.Journey.model.Gerente;
+import com.Journey.model.Usuario;
+import com.Journey.model.Estampa;
+import com.Journey.DAO.PecaDAO;
+import com.Journey.DAO.ColecaoDAO;
+import com.Journey.DAO.UsuarioDAO;
+import com.Journey.DAO.EstampaDAO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -33,7 +35,8 @@ public class DashboardServlet extends HttpServlet {
         try {
             List<Peca> pecas = new PecaDAO().listarPecas();
             List<Colecao> colecoes = new ColecaoDAO().listar();
-            List<Gerente> usuarios = new GerenteDAO().listar();
+            List<Usuario> usuarios = new UsuarioDAO().listar();
+            List<Estampa> estampas = new EstampaDAO().listar();
 
             request.setAttribute("pecas", pecas);
             request.setAttribute("colecoes", colecoes);
