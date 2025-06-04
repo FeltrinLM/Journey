@@ -1,8 +1,6 @@
 package com.Journey.controller;
-
 import com.Journey.DAO.ColecaoDAO;
 import com.Journey.model.Colecao;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
