@@ -18,7 +18,6 @@
 <body>
 <h2>Editar Coleção</h2>
 
-<!-- Formulário correto -->
 <form action="editar-colecao" method="post">
     <input type="hidden" name="id" value="<%= colecao.getId_colecao() %>">
 

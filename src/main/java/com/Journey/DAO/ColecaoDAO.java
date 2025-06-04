@@ -86,7 +86,6 @@ public class ColecaoDAO {
 
             stmt.setString(1, c.getNome());
 
-            // Validar e converter data_inicio
             if (c.getData_inicio() == null || c.getData_inicio().isEmpty()) {
                 throw new IllegalArgumentException("Data de início é obrigatória");
             }

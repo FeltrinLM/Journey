@@ -10,12 +10,10 @@ public class UsuarioService {
     private static final UsuarioDAO dao = new UsuarioDAO();
 
     public ArrayList<Gerente> listarGerentes() throws Exception {
-        // dao.listar() retorna List<Gerente>. Convertendo para ArrayList:
         List<Gerente> resultado = dao.listar();
         if (resultado == null) {
             return new ArrayList<>();
         }
-        // Cria um ArrayList a partir do List retornado
         return new ArrayList<>(resultado);
     }
 }
