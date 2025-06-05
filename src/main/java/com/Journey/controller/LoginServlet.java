@@ -1,7 +1,7 @@
 package com.Journey.controller;
 
-import com.Journey.DAO.GerenteDAO;
-import com.Journey.model.Gerente;
+import com.Journey.DAO.UsuarioDAO;
+import com.Journey.model.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,10 +18,10 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
 
-        GerenteDAO gerenteDAO = new GerenteDAO();
-        Gerente usuario;
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        Usuario usuario;
         try {
-            usuario = gerenteDAO.buscarPorEmailESenha(email, senha);
+            usuario = UsuarioDAO.buscarPorEmailESenha(email, senha);
         } catch (Exception e) {
             request.setAttribute("erro", "Erro ao acessar o banco de dados: " + e.getMessage());
             request.getRequestDispatcher("index.jsp").forward(request, response);

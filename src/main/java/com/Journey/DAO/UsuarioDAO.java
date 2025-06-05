@@ -7,31 +7,31 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    public boolean inserir(Gerente gerente) throws SQLException, ClassNotFoundException {
-        String sql = "INSERT INTO Gerente (nome, email, senha) VALUES (?, ?, ?)";
+    public boolean inserir(Usuario usuario) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO Usuario (nome, email, senha) VALUES (?, ?, ?)";
         try (Connection conn = ConexaoBanco.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, gerente.getNome());
-            stmt.setString(2, gerente.getEmail());
-            stmt.setString(3, gerente.getSenha());
+            stmt.setString(1, usuario.getNome());
+            stmt.setString(2, usuario.getEmail());
+            stmt.setString(3, usuario.getSenha());
             return stmt.executeUpdate() > 0;
         }
     }
 
-    public boolean atualizar(Gerente gerente) throws SQLException, ClassNotFoundException {
-        String sql = "UPDATE Gerente SET nome = ?, email = ?, senha = ? WHERE gerente_id = ?";
+    public boolean atualizar(Usuario usuario) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE Usuario SET nome = ?, email = ?, senha = ? WHERE usuario_id = ?";
         try (Connection conn = ConexaoBanco.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, gerente.getNome());
-            stmt.setString(2, gerente.getEmail());
-            stmt.setString(3, gerente.getSenha());
-            stmt.setInt(4, gerente.getId_gerente());
+            stmt.setString(1, usuario.getNome());
+            stmt.setString(2, usuario.getEmail());
+            stmt.setString(3, usuario.getSenha());
+            stmt.setInt(4, usuario.getId_usuario());
             return stmt.executeUpdate() > 0;
         }
     }
 
     public boolean excluir(int id) throws SQLException, ClassNotFoundException {
-        String sql = "DELETE FROM Gerente WHERE gerente_id = ?";
+        String sql = "DELETE FROM Usuario WHERE usuario_id = ?";
         try (Connection conn = ConexaoBanco.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -39,25 +39,25 @@ public class UsuarioDAO {
         }
     }
 
-    public List<Gerente> listar() throws SQLException, ClassNotFoundException {
-        String sql = "SELECT gerente_id, nome, email, senha FROM Gerente";
-        List<Gerente> usuarios = new ArrayList<>();
+    public List<Usuario> listar() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT usuario_id, nome, email, senha FROM usuario";
+        List<Usuario> usuarios = new ArrayList<>();
         try (Connection conn = ConexaoBanco.getConexao();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                Gerente g = new Gerente();
-                g.setId_gerente(rs.getInt("gerente_id"));
-                g.setNome(rs.getString("nome"));
-                g.setEmail(rs.getString("email"));
-                g.setSenha(rs.getString("senha"));
-                usuarios.add(g);
+                Usuario u = new Usuario();
+                u.setid_usuario(rs.getInt("gerente_id"));
+                u.setNome(rs.getString("nome"));
+                u.setEmail(rs.getString("email"));
+                u.setSenha(rs.getString("senha"));
+                usuarios.add(u);
             }
         }
         return usuarios;
     }
 
-    public Gerente buscarPorId(int id) throws SQLException, ClassNotFoundException {
+    public Usuario buscarPorId(int id) throws SQLException, ClassNotFoundException {
         String sql = "SELECT gerente_id, nome, email, senha FROM Gerente WHERE gerente_id = ?";
         try (Connection conn = ConexaoBanco.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

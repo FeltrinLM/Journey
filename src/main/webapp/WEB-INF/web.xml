@@ -19,7 +19,7 @@
   <!-- Dashboard -->
   <servlet>
     <servlet-name>DashboardServlet</servlet-name>
-    <servlet-class>com.Journey.controller.DashboardServlet</servlet-class>
+    <servlet-class>com.Journey.controller.VisualizacaoGeralServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DashboardServlet</servlet-name>

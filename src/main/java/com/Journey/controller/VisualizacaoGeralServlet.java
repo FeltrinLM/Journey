@@ -19,8 +19,8 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/dashboard")
-public class DashboardServlet extends HttpServlet {
+@WebServlet("/visualizacao-geral.jsp")
+public class VisualizacaoGeralServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,18 +35,18 @@ public class DashboardServlet extends HttpServlet {
         try {
             List<Peca> pecas = new PecaDAO().listarPecas();
             List<Colecao> colecoes = new ColecaoDAO().listar();
-            List<Usuario> usuarios = new UsuarioDAO().listar();
+
             List<Estampa> estampas = new EstampaDAO().listar();
 
             request.setAttribute("pecas", pecas);
             request.setAttribute("colecoes", colecoes);
-            request.setAttribute("usuarios", usuarios);
+            request.setAttribute("estampas", estampas);
 
-            request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("visualizacao-geral.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ServletException("Erro ao carregar dados para o dashboard.", e);
+            throw new ServletException("Erro ao carregar dados para a visualizacao.", e);
         }
     }
 
@@ -59,12 +59,16 @@ public class DashboardServlet extends HttpServlet {
         try {
             if ("excluir".equals(acao)) {
                 int id = Integer.parseInt(request.getParameter("id"));
-                new PecaDAO().removerPeca(id);
+                new PecaDAO().excluir(id);
 
             } else if ("excluir-colecao".equals(acao)) {
                 int id = Integer.parseInt(request.getParameter("id"));
-                new ColecaoDAO().excluir(id);
+                new ColecaoDAO().removerColecao(id);
+            } else if ("excluir-estampa".equals(acao)) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                new EstampaDAO().excluir(id);
             }
+
 
             // Redireciona para atualizar a tela com os dados
             response.sendRedirect("dashboard");

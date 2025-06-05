@@ -14,16 +14,15 @@ public class NovaPecaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String modelo = request.getParameter("modelo");
+        String tipo= request.getParameter("tipo");
         String tamanho = request.getParameter("tamanho");
         String cor = request.getParameter("cor");
-        int id_colecao = Integer.parseInt(request.getParameter("id_colecao"));
+
 
         Peca peca = new Peca();
-        peca.setModelo(modelo);
+        peca.setTipo(tipo);
         peca.setTamanho(tamanho);
         peca.setCor(cor);
-        peca.setId_colecao(id_colecao);
 
         PecaDAO dao = new PecaDAO();
         dao.inserirPeca(peca);

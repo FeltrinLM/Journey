@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class PecaDAO {
     //metodo para listar pecas cadastradas
-    public ArrayList<Peca> listarPecas(){
+    public ArrayList<Peca> listar(){
         String sql = "SELECT * FROM Peca";
         ArrayList<Peca> funcionarios = new ArrayList<Peca>();
 
@@ -32,7 +32,7 @@ public class PecaDAO {
         return funcionarios;
     }
 
-    public Peca buscarPeca(int idPeca){
+    public Peca buscarPorId(int idPeca){
         String sql = "SELECT * FROM Peca WHERE peca_id = ?";
         Peca peca = null;
         try (Connection con = ConexaoBanco.getConexao();
@@ -49,7 +49,7 @@ public class PecaDAO {
         return peca;
     }
 
-    public boolean removerPeca(int idPeca){
+    public boolean excluir(int idPeca){
         String sql = "DELETE FROM Peca WHERE  peca_id = ?";
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -68,7 +68,7 @@ public class PecaDAO {
     }
 
     //método para alterar uma peca
-    public boolean alterarPeca(Peca p){
+    public boolean atualizar(Peca p){
         String sql = "UPDATE peca SET id_colecao = ?, modelo = ?, tamanho = ?, cor = ? WHERE peca_id = ?";
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -87,7 +87,7 @@ public class PecaDAO {
     }
 
     //método para inserir um nova peca
-    public boolean inserirPeca(Peca peca) {
+    public boolean inserir(Peca peca) {
         String sql = "INSERT INTO Peca (modelo, tamanho, cor, id_colecao) VALUES (?, ?, ?, ?)";
 
         try (Connection con = ConexaoBanco.getConexao();

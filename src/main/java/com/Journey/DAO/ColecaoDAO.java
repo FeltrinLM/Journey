@@ -117,9 +117,7 @@ public class ColecaoDAO {
     }
 
 
-
-
-    public boolean excluir(int id) {
+    public boolean removerColecao(int id) {
         String sql = "DELETE FROM Colecao WHERE id_colecao = ?";
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql)) {

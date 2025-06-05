@@ -24,7 +24,7 @@ public class EditarPecaServlet extends HttpServlet {
             request.setAttribute("peca", peca);
             request.getRequestDispatcher("editar-peca.jsp").forward(request, response);
         } else {
-            response.sendRedirect("dashboard");
+            response.sendRedirect("visualizacao-geral.jsp");
         }
     }
 
@@ -33,21 +33,19 @@ public class EditarPecaServlet extends HttpServlet {
             throws ServletException, IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
-        String modelo = request.getParameter("modelo");
+        String tipo = request.getParameter("tipo");
         String tamanho = request.getParameter("tamanho");
         String cor = request.getParameter("cor");
-        int id_colecao = Integer.parseInt(request.getParameter("id_colecao"));
 
         Peca peca = new Peca();
         peca.setPeca_id(id);
-        peca.setModelo(modelo);
+        peca.setTipo(tipo);
         peca.setTamanho(tamanho);
         peca.setCor(cor);
-        peca.setId_colecao(id_colecao);
 
         PecaDAO dao = new PecaDAO();
         dao.alterarPeca(peca);
 
-        response.sendRedirect("dashboard");
+        response.sendRedirect("visualizacao-geral.jsp");
     }
 }

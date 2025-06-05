@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.Journey.model.Peca" %>
-<%@ page import="com.Journey.model.Gerente" %>
+<%@ page import="com.Journey.model.Usuario" %>
 <%@ page import="com.Journey.model.Colecao" %>
 
 <%
