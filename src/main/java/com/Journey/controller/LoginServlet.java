@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         Usuario usuario;
         try {
-            usuario = UsuarioDAO.buscarPorEmailESenha(email, senha);
+            usuario = usuarioDAO.buscarPorEmailESenha(email, senha);
         } catch (Exception e) {
             request.setAttribute("erro", "Erro ao acessar o banco de dados: " + e.getMessage());
             request.getRequestDispatcher("index.jsp").forward(request, response);

@@ -25,7 +25,7 @@ public class NovaPecaServlet extends HttpServlet {
         peca.setCor(cor);
 
         PecaDAO dao = new PecaDAO();
-        dao.inserirPeca(peca);
+        dao.inserir(peca);
 
         response.sendRedirect("dashboard");
     }

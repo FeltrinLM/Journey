@@ -8,101 +8,124 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PecaDAO {
-    //metodo para listar pecas cadastradas
-    public ArrayList<Peca> listar(){
+
+    // Listar todas as peças
+    public ArrayList<Peca> listar() {
         String sql = "SELECT * FROM Peca";
-        ArrayList<Peca> funcionarios = new ArrayList<Peca>();
+        ArrayList<Peca> pecas = new ArrayList<>();
 
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-            while(rs.next()){
-                Peca p= new Peca();
+
+            while (rs.next()) {
+                Peca p = new Peca();
                 p.setPeca_id(rs.getInt("peca_id"));
-                p.setId_colecao(rs.getInt("id_colecao"));
-                p.setModelo(rs.getString("modelo"));
+                p.setTipo(rs.getString("tipo"));
                 p.setTamanho(rs.getString("tamanho"));
                 p.setCor(rs.getString("cor"));
-                funcionarios.add(p);
+                p.setQuantidade(rs.getInt("quantidade"));
+                pecas.add(p);
             }
+
         } catch (SQLException e) {
-            System.err.println("erro ao listar as pecas " + e.getMessage());
+            System.err.println("Erro ao listar as peças: " + e.getMessage());
             return null;
         }
-        return funcionarios;
+
+        return pecas;
     }
 
-    public Peca buscarPorId(int idPeca){
+    // Buscar uma peça pelo ID
+    public Peca buscarPorId(int idPeca) {
         String sql = "SELECT * FROM Peca WHERE peca_id = ?";
         Peca peca = null;
+
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql)) {
+
             stmt.setInt(1, idPeca);
-            ResultSet rs = stmt.executeQuery();
-            if(rs.next()){
-                peca = new Peca();
-                peca.setPeca_id(rs.getInt("peca_id"));
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    peca = new Peca();
+                    peca.setPeca_id(rs.getInt("peca_id"));
+                    peca.setTipo(rs.getString("tipo"));
+                    peca.setTamanho(rs.getString("tamanho"));
+                    peca.setCor(rs.getString("cor"));
+                    peca.setQuantidade(rs.getInt("quantidade"));
+                }
             }
+
         } catch (SQLException e) {
-            System.out.println("Erro ao buscar funcionario " + e.getMessage());
+            System.err.println("Erro ao buscar peça: " + e.getMessage());
         }
+
         return peca;
     }
 
-    public boolean excluir(int idPeca){
-        String sql = "DELETE FROM Peca WHERE  peca_id = ?";
-        try (Connection con = ConexaoBanco.getConexao();
-             PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, idPeca);
-            stmt.execute();
-            if(stmt.getUpdateCount()<=0){
-                System.out.println("Nenhuma peca com id " + idPeca + " encontrado");
-                return false;
-            }
-        } catch (SQLException e) {
-            System.err.println("Erro ao exlcuir peca " + e.getMessage());
-            return false;
-        }
-        System.out.println("peca id: " + idPeca + " excluida com sucesso");
-        return true;
-    }
-
-    //método para alterar uma peca
-    public boolean atualizar(Peca p){
-        String sql = "UPDATE peca SET id_colecao = ?, modelo = ?, tamanho = ?, cor = ? WHERE peca_id = ?";
-        try (Connection con = ConexaoBanco.getConexao();
-             PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, p.getId_colecao());
-            stmt.setString(2, p.getModelo());
-            stmt.setString(3, p.getTamanho());
-            stmt.setString(4, p.getCor());
-            stmt.setInt(5, p.getPeca_id());
-            stmt.execute();
-        } catch (SQLException e) {
-            System.err.println("erro ao alterar peca " + e.getMessage());
-            return false;
-        }
-        System.out.println("peca id: " + p.getPeca_id() + " alterada");
-        return true;
-    }
-
-    //método para inserir um nova peca
+    // Inserir uma nova peça
     public boolean inserir(Peca peca) {
-        String sql = "INSERT INTO Peca (modelo, tamanho, cor, id_colecao) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Peca (tipo, tamanho, cor, quantidade) VALUES (?, ?, ?, ?)";
 
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            stmt.setString(1, peca.getModelo());
+            stmt.setString(1, peca.getTipo());
             stmt.setString(2, peca.getTamanho());
             stmt.setString(3, peca.getCor());
-            stmt.setInt(4, peca.getId_colecao());
+            stmt.setInt(4, peca.getQuantidade());
 
             int linhasAfetadas = stmt.executeUpdate();
             return linhasAfetadas > 0;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.err.println("Erro ao inserir peça: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Atualizar uma peça
+    public boolean atualizar(Peca p) {
+        String sql = "UPDATE Peca SET tipo = ?, tamanho = ?, cor = ?, quantidade = ? WHERE peca_id = ?";
+
+        try (Connection con = ConexaoBanco.getConexao();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, p.getTipo());
+            stmt.setString(2, p.getTamanho());
+            stmt.setString(3, p.getCor());
+            stmt.setInt(4, p.getQuantidade());
+            stmt.setInt(5, p.getPeca_id());
+
+            int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar peça: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Excluir uma peça
+    public boolean excluir(int idPeca) {
+        String sql = "DELETE FROM Peca WHERE peca_id = ?";
+
+        try (Connection con = ConexaoBanco.getConexao();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setInt(1, idPeca);
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas == 0) {
+                System.out.println("Nenhuma peça com id " + idPeca + " encontrada.");
+                return false;
+            }
+
+            System.out.println("Peça id: " + idPeca + " excluída com sucesso.");
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao excluir peça: " + e.getMessage());
             return false;
         }
     }

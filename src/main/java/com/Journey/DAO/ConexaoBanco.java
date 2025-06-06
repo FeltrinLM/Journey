@@ -24,4 +24,5 @@ public class ConexaoBanco {
             throw new RuntimeException("Falha ao conectar no PostgreSQL.", e);
         }
     }
+
 }

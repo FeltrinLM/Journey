@@ -111,7 +111,7 @@ public class UsuarioDAO {
                     u.setNome(rs.getString("nome"));
                     u.setEmail(rs.getString("email"));
                     u.setSenha(rs.getString("senha"));
-                    return g;
+                    return u;
                 } else {
                     return null;
                 }

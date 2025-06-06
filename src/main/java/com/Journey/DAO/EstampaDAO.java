@@ -54,51 +54,34 @@ public class EstampaDAO {
         return null;
     }
 
-    public boolean inserir(Colecao colecao) {
-        String sql = "INSERT INTO Colecao (nome, data_inicio, data_fim) VALUES (?, ?, ?)";
+    public boolean inserir(Estampa estampa) {
+        String sql = "INSERT INTO Estampa (nome, quantidade, id_colecao) VALUES (?, ?, ?)";
 
         try (Connection conn = ConexaoBanco.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, colecao.getNome());
-            stmt.setDate(2, java.sql.Date.valueOf(colecao.getData_inicio()));
-
-            if (colecao.getData_fim() == null || colecao.getData_fim().isEmpty()) {
-                stmt.setNull(3, java.sql.Types.DATE);
-            } else {
-                stmt.setDate(3, java.sql.Date.valueOf(colecao.getData_fim()));
-            }
+            stmt.setString(1, estampa.getNome());
+            stmt.setInt(2, estampa.getQuantidade());
+            stmt.setInt(3, estampa.getId_colecao());
 
             return stmt.executeUpdate() > 0;
 
         } catch (Exception e) {
-            System.err.println("Erro ao inserir coleção: " + e.getMessage());
+            System.err.println("Erro ao inserir estampa: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
     }
 
 
-    public boolean atualizar(Colecao c) {
-        String sql = "UPDATE Colecao SET nome = ?, data_inicio = ?, data_fim = ? WHERE id_colecao = ?";
+    public boolean atualizar(Estampa e) {
+        String sql = "UPDATE ESTAMPA SET nome = ?, quantidade = ?, id_colecao = ? WHERE id_estampa = ?";
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            stmt.setString(1, c.getNome());
-
-            if (c.getData_inicio() == null || c.getData_inicio().isEmpty()) {
-                throw new IllegalArgumentException("Data de início é obrigatória");
-            }
-            stmt.setDate(2, java.sql.Date.valueOf(c.getData_inicio()));
-
-            // Tratar data_fim (opcional)
-            if (c.getData_fim() == null || c.getData_fim().isEmpty()) {
-                stmt.setNull(3, java.sql.Types.DATE);
-            } else {
-                stmt.setDate(3, java.sql.Date.valueOf(c.getData_fim()));
-            }
-
-            stmt.setInt(4, c.getId_colecao());
+            stmt.setString(1, e.getNome());
+            stmt.setInt(2, e.getQuantidade());
+            stmt.setInt(3, e.getId_colecao());
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected == 0) {
@@ -106,19 +89,19 @@ public class EstampaDAO {
             }
             return rowsAffected > 0;
 
-        } catch (IllegalArgumentException e) {
-            System.err.println("Formato de data inválido: " + e.getMessage());
+        } catch (IllegalArgumentException ex) {
+            System.err.println("Formato de data inválido: " + ex.getMessage());
             return false;
-        } catch (Exception e) {
-            System.err.println("Erro ao atualizar coleção: " + e.getMessage());
-            e.printStackTrace();
+        } catch (Exception ex) {
+            System.err.println("Erro ao atualizar coleção: " + ex.getMessage());
+            ex.printStackTrace();
             return false;
         }
     }
 
 
     public boolean excluir(int id) {
-        String sql = "DELETE FROM Colecao WHERE id_colecao = ?";
+        String sql = "DELETE FROM ESTAMPA WHERE id_estampa = ?";
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
@@ -126,7 +109,7 @@ public class EstampaDAO {
             return stmt.executeUpdate() > 0;
 
         } catch (Exception e) {
-            System.err.println("Erro ao excluir coleção: " + e.getMessage());
+            System.err.println("Erro ao excluir estampa: " + e.getMessage());
             return false;
         }
     }

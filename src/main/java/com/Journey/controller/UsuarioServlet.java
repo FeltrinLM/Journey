@@ -20,14 +20,14 @@ public class UsuarioServlet extends HttpServlet {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
 
-        Gerente gerente = new Gerente();
-        gerente.setNome(nome);
-        gerente.setEmail(email);
-        gerente.setSenha(senha);
+        Usuario usuario = new Usuario();
+        usuario.setNome(nome);
+        usuario.setEmail(email);
+        usuario.setSenha(senha);
 
-        GerenteDAO dao = new GerenteDAO();
+        UsuarioDAO dao = new UsuarioDAO();
         try {
-            boolean inseriu = dao.inserir(gerente);
+            boolean inseriu = dao.inserir(usuario);
 
             if (inseriu) {
                 response.sendRedirect("dashboard");

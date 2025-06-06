@@ -33,7 +33,7 @@ public class VisualizacaoGeralServlet extends HttpServlet {
         }
 
         try {
-            List<Peca> pecas = new PecaDAO().listarPecas();
+            List<Peca> pecas = new PecaDAO().listar();
             List<Colecao> colecoes = new ColecaoDAO().listar();
 
             List<Estampa> estampas = new EstampaDAO().listar();

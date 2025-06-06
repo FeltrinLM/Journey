@@ -18,7 +18,8 @@ public class EditarPecaServlet extends HttpServlet {
         int idPeca = Integer.parseInt(request.getParameter("id"));
 
         PecaDAO dao = new PecaDAO();
-        Peca peca = dao.buscarPeca(idPeca);
+        Peca peca = dao.buscarPorId(idPeca);
+
 
         if (peca != null) {
             request.setAttribute("peca", peca);
@@ -44,7 +45,7 @@ public class EditarPecaServlet extends HttpServlet {
         peca.setCor(cor);
 
         PecaDAO dao = new PecaDAO();
-        dao.alterarPeca(peca);
+        dao.atualizar(peca);
 
         response.sendRedirect("visualizacao-geral.jsp");
     }
