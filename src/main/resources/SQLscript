@@ -1,0 +1,58 @@
+CREATE TABLE Usuario (
+usuario_id SERIAL PRIMARY KEY,
+nome VARCHAR(100) NOT NULL,
+senha VARCHAR(100) NOT NULL,
+email VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE Peca (
+peca_id SERIAL PRIMARY KEY,
+tamanho VARCHAR(10) NOT NULL,
+cor VARCHAR(30) NOT NULL,
+tipo VARCHAR(100) NOT NULL,
+quantidade int
+);
+
+CREATE TABLE Colecao (
+id_colecao SERIAL PRIMARY KEY,
+nome VARCHAR(100) NOT NULL,
+data_inicio DATE NOT NULL,
+data_fim DATE
+);
+
+CREATE TABLE Estampa (
+estampa_id SERIAL PRIMARY KEY,
+nome VARCHAR(10) NOT NULL,
+cor VARCHAR(30) NOT NULL,
+quantidade int,
+id_colecao INTEGER NOT NULL,
+FOREIGN KEY (id_colecao) REFERENCES Colecao(id_colecao) ON DELETE CASCADE
+);
+
+INSERT INTO USUARIO (nome, senha, email)
+VALUES
+('Ana Oliveira', 'senha123', 'ana.oliveira@moda.com');
+
+INSERT INTO Peca (tamanho, cor, tipo, quantidade)
+VALUES
+('M', 'Verde', 'Camiseta', 1),
+('P', 'Rosa', 'Moletom', 2),
+('G', 'Branco', 'Camiseta', 1),
+('M', 'Preto', 'Camiseta', 1),
+('G', 'Azul Marinho', 'Camiseta', 2),
+('GG', 'Cinza', 'Camiseta', 2);
+
+INSERT INTO Colecao (nome, data_inicio, data_fim)
+VALUES
+('Sublime', '2025-09-01', '2025-11-30'),
+('StreetWear', '2025-05-01', '2025-08-31');
+
+INSERT INTO Estampa (nome, cor, quantidade, id_colecao)
+VALUES
+('Angel', 'Branca', 3, 3),
+('Luriates', 'Preta', 6, 4);
+
+SELECT * FROM usuario;
+SELECT * FROM Colecao;
+SELECT * FROM Peca;
+SELECT * FROM Estampa;

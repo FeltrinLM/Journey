@@ -47,7 +47,7 @@ public class UsuarioDAO {
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 Usuario u = new Usuario();
-                u.setid_usuario(rs.getInt("gerente_id"));
+                u.setid_usuario(rs.getInt("usuario_id"));
                 u.setNome(rs.getString("nome"));
                 u.setEmail(rs.getString("email"));
                 u.setSenha(rs.getString("senha"));
@@ -58,45 +58,45 @@ public class UsuarioDAO {
     }
 
     public Usuario buscarPorId(int id) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT gerente_id, nome, email, senha FROM Gerente WHERE gerente_id = ?";
+        String sql = "SELECT usuario_id, nome, email, senha FROM USAURIO WHERE usuario_id = ?";
         try (Connection conn = ConexaoBanco.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    Gerente g = new Gerente();
-                    g.setId_gerente(rs.getInt("gerente_id"));
-                    g.setNome(rs.getString("nome"));
-                    g.setEmail(rs.getString("email"));
-                    g.setSenha(rs.getString("senha"));
-                    return g;
+                    Usuario u = new Usuario();
+                    u.setid_usuario(rs.getInt("usuario_id"));
+                    u.setNome(rs.getString("nome"));
+                    u.setEmail(rs.getString("email"));
+                    u.setSenha(rs.getString("senha"));
+                    return u;
                 }
             }
         }
         return null;
     }
 
-    public Gerente buscarPorEmail(String email) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT gerente_id, nome, email, senha FROM Gerente WHERE email = ?";
+    public Usuario buscarPorEmail(String email) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT usuario_id, nome, email, senha FROM USUARIO WHERE email = ?";
         try (Connection conn = ConexaoBanco.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, email);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    Gerente g = new Gerente();
-                    g.setId_gerente(rs.getInt("gerente_id"));
-                    g.setNome(rs.getString("nome"));
-                    g.setEmail(rs.getString("email"));
-                    g.setSenha(rs.getString("senha"));
-                    return g;
+                    Usuario u = new Usuario();
+                    u.setid_usuario(rs.getInt("usuario_id"));
+                    u.setNome(rs.getString("nome"));
+                    u.setEmail(rs.getString("email"));
+                    u.setSenha(rs.getString("senha"));
+                    return u;
                 }
             }
         }
         return null;
     }
 
-    public Gerente buscarPorEmailESenha(String email, String senha) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM Gerente WHERE email = ? AND senha = ?";
+    public Usuario buscarPorEmailESenha(String email, String senha) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM USUARIO WHERE email = ? AND senha = ?";
 
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -106,11 +106,11 @@ public class UsuarioDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    Gerente g = new Gerente();
-                    g.setId_gerente(rs.getInt("gerente_id"));
-                    g.setNome(rs.getString("nome"));
-                    g.setEmail(rs.getString("email"));
-                    g.setSenha(rs.getString("senha"));
+                    Usuario u = new Usuario();
+                    u.setid_usuario(rs.getInt("usuario_id"));
+                    u.setNome(rs.getString("nome"));
+                    u.setEmail(rs.getString("email"));
+                    u.setSenha(rs.getString("senha"));
                     return g;
                 } else {
                     return null;
