@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,10 +10,10 @@
 <h2>Cadastrar Nova Peça</h2>
 
 <form method="post" action="nova-peca">
-    Modelo: <input type="text" name="modelo" required><br><br>
+    Tipo: <input type="text" name="tipo" required><br><br>
     Tamanho: <input type="text" name="tamanho" required><br><br>
     Cor: <input type="text" name="cor" required><br><br>
-    Coleção (ID): <input type="number" name="id_colecao" required><br><br>
+    Quantidade: <input type="number" name="quantidade" required><br><br>
 
     <input type="submit" value="Salvar"
            style="background-color: green; color: white; padding: 10px 15px; border: none; cursor: pointer;">

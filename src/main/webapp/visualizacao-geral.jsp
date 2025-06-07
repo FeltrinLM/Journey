@@ -125,6 +125,10 @@
     </tr>
     <%  }} %>
 </table>
+<form method="get" action="nova-estampa.jsp">
+    <input type="submit" value="Adicionar nova estampa" style="background-color:green; color:white;">
+</form>
+
 
 </body>
 </html>

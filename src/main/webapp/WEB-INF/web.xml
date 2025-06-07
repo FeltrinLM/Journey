@@ -25,6 +25,16 @@
     <url-pattern>/usuario</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>NovaPecaServlet</servlet-name>
+    <servlet-class>com.Journey.controller.NovaPecaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NovaPecaServlet</servlet-name>
+    <url-pattern>/nova-peca</url-pattern>
+  </servlet-mapping>
+
+
   <!-- Visualização Geral -->
   <servlet>
     <servlet-name>VisualizacaoGeralServlet</servlet-name>
