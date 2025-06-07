@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
             usuario = usuarioDAO.buscarPorEmailESenha(email, senha);
         } catch (Exception e) {
             request.setAttribute("erro", "Erro ao acessar o banco de dados: " + e.getMessage());
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
         }
 
@@ -34,7 +34,8 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("dashboard");
         } else {
             request.setAttribute("erro", "Email ou senha incorretos.");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
+
     }
 }

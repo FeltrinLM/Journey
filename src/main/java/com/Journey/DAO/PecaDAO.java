@@ -30,7 +30,7 @@ public class PecaDAO {
 
         } catch (SQLException e) {
             System.err.println("Erro ao listar as peças: " + e.getMessage());
-            return null;
+            return new ArrayList<>(); // ← evita o NullPointer
         }
 
         return pecas;

@@ -17,7 +17,7 @@ public class EstampaDAO {
 
             while (rs.next()) {
                 Estampa e = new Estampa();
-                e.setId_estampa(rs.getInt("id_estampa"));
+                e.setId_estampa(rs.getInt("estampa_id"));
                 e.setNome(rs.getString("nome"));
                 e.setQuantidade(rs.getInt("quantidade"));
                 e.setId_colecao(rs.getInt("id_colecao"));
@@ -32,7 +32,7 @@ public class EstampaDAO {
     }
 
     public Estampa buscarPorId(int id) {
-        String sql = "SELECT * FROM Estampa WHERE id_estampa = ?";
+        String sql = "SELECT * FROM Estampa WHERE estampa_id = ?";
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
@@ -40,7 +40,7 @@ public class EstampaDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Estampa e = new Estampa();
-                e.setId_estampa(rs.getInt("id_estampa"));
+                e.setId_estampa(rs.getInt("estampa_id"));
                 e.setId_colecao(rs.getInt("id_colecao"));
                 e.setNome(rs.getString("nome"));
                 e.setQuantidade(rs.getInt("quantidade"));
@@ -75,13 +75,14 @@ public class EstampaDAO {
 
 
     public boolean atualizar(Estampa e) {
-        String sql = "UPDATE ESTAMPA SET nome = ?, quantidade = ?, id_colecao = ? WHERE id_estampa = ?";
+        String sql = "UPDATE ESTAMPA SET nome = ?, quantidade = ?, id_colecao = ? WHERE estampa_id = ?";
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
             stmt.setString(1, e.getNome());
             stmt.setInt(2, e.getQuantidade());
             stmt.setInt(3, e.getId_colecao());
+            stmt.setInt(4, e.getId_estampa());
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected == 0) {
@@ -93,15 +94,16 @@ public class EstampaDAO {
             System.err.println("Formato de data inválido: " + ex.getMessage());
             return false;
         } catch (Exception ex) {
-            System.err.println("Erro ao atualizar coleção: " + ex.getMessage());
+            System.err.println("Erro ao atualizar estampa: " + ex.getMessage());
             ex.printStackTrace();
             return false;
         }
     }
 
 
+
     public boolean excluir(int id) {
-        String sql = "DELETE FROM ESTAMPA WHERE id_estampa = ?";
+        String sql = "DELETE FROM ESTAMPA WHERE estampa_id = ?";
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 

@@ -11,15 +11,12 @@ import com.Journey.DAO.EstampaDAO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/visualizacao-geral.jsp")
+@WebServlet("/dashboard")
 public class VisualizacaoGeralServlet extends HttpServlet {
 
     @Override
@@ -35,18 +32,18 @@ public class VisualizacaoGeralServlet extends HttpServlet {
         try {
             List<Peca> pecas = new PecaDAO().listar();
             List<Colecao> colecoes = new ColecaoDAO().listar();
-
             List<Estampa> estampas = new EstampaDAO().listar();
 
             request.setAttribute("pecas", pecas);
             request.setAttribute("colecoes", colecoes);
             request.setAttribute("estampas", estampas);
 
+            // Agora faz forward para a JSP normalmente
             request.getRequestDispatcher("visualizacao-geral.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ServletException("Erro ao carregar dados para a visualizacao.", e);
+            throw new ServletException("Erro ao carregar dados para a visualização.", e);
         }
     }
 
@@ -64,13 +61,13 @@ public class VisualizacaoGeralServlet extends HttpServlet {
             } else if ("excluir-colecao".equals(acao)) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 new ColecaoDAO().removerColecao(id);
+
             } else if ("excluir-estampa".equals(acao)) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 new EstampaDAO().excluir(id);
             }
 
-
-            // Redireciona para atualizar a tela com os dados
+            // Redireciona de volta pro servlet (refresca os dados)
             response.sendRedirect("dashboard");
 
         } catch (Exception e) {
