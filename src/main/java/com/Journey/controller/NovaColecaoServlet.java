@@ -15,25 +15,30 @@ public class NovaColecaoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String nome = request.getParameter("nome");
-        String dataInicio = request.getParameter("data_inicio");
-        String dataFim = request.getParameter("data_fim");
+        String data_inicio = request.getParameter("data_inicio");
+        String data_fim = request.getParameter("data_fim");
 
-        // Preenche a coleção
+        ColecaoDAO dao = new ColecaoDAO();
+
+        if (dao.nomeExiste(nome)) {
+            request.setAttribute("erro", "Já existe uma coleção com esse nome.");
+            request.setAttribute("nome", nome);
+            request.setAttribute("data_inicio", data_inicio);
+            request.setAttribute("data_fim", data_fim);
+            request.getRequestDispatcher("nova-colecao.jsp").forward(request, response);
+            return;
+        }
+
         Colecao colecao = new Colecao();
         colecao.setNome(nome);
-        colecao.setData_inicio(dataInicio);
-        colecao.setData_fim(dataFim);
+        colecao.setData_inicio(data_inicio);
+        colecao.setData_fim(data_fim == null || data_fim.isEmpty() ? null : data_fim);
 
-        // Insere no banco
-        boolean sucesso = new ColecaoDAO().inserir(colecao);
-
-        if (sucesso) {
-            response.sendRedirect("dashboard");
-        } else {
-            request.setAttribute("erro", "Erro ao cadastrar a coleção.");
-            request.getRequestDispatcher("nova-colecao.jsp").forward(request, response);
-        }
+        dao.inserir(colecao);
+        response.sendRedirect("dashboard");
     }
+
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

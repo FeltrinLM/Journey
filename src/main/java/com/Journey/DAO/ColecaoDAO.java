@@ -130,4 +130,18 @@ public class ColecaoDAO {
             return false;
         }
     }
+
+    public boolean nomeExiste(String nome) {
+        String sql = "SELECT 1 FROM Colecao WHERE LOWER(nome) = LOWER(?)";
+        try (Connection con = ConexaoBanco.getConexao();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next(); // retorna true se encontrou algo
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar nome da coleção: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

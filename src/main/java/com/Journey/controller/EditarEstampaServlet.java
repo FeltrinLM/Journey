@@ -39,14 +39,23 @@ public class EditarEstampaServlet extends HttpServlet {
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
         int id_colecao = Integer.parseInt(request.getParameter("id_colecao"));
 
-        Estampa estampa = new Estampa();
-        estampa.setId_estampa(id);
-        estampa.setNome(nome);
-        estampa.setQuantidade(quantidade);
-        estampa.setId_colecao(id_colecao);
-
         EstampaDAO dao = new EstampaDAO();
-        dao.atualizar(estampa);
+        Estampa duplicada = dao.buscarPorNomeEColecao(nome, id_colecao);
+
+        if (duplicada != null && duplicada.getId_estampa() != id) {
+            // Existe outra estampa com o mesmo nome (ignorando case) e mesma coleção -> soma
+            int novaQuantidade = duplicada.getQuantidade() + quantidade;
+            dao.atualizarQuantidade(duplicada.getId_estampa(), novaQuantidade);
+            dao.excluir(id); // remove a atual (já que será fundida com a duplicata)
+        } else {
+            // Atualiza normalmente
+            Estampa estampa = new Estampa();
+            estampa.setId_estampa(id);
+            estampa.setNome(nome);
+            estampa.setQuantidade(quantidade);
+            estampa.setId_colecao(id_colecao);
+            dao.atualizar(estampa);
+        }
 
         response.sendRedirect("dashboard");
     }

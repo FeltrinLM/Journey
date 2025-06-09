@@ -32,13 +32,21 @@ public class NovaEstampaServlet extends HttpServlet {
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
         int id_colecao = Integer.parseInt(request.getParameter("id_colecao"));
 
-        Estampa estampa = new Estampa();
-        estampa.setNome(nome);
-        estampa.setQuantidade(quantidade);
-        estampa.setId_colecao(id_colecao);
-
         EstampaDAO dao = new EstampaDAO();
-        dao.inserir(estampa);
+        Estampa existente = dao.buscarPorNomeEColecao(nome, id_colecao);
+
+        if (existente != null) {
+            // Se já existe, somar a quantidade
+            int novaQuantidade = existente.getQuantidade() + quantidade;
+            dao.atualizarQuantidade(existente.getId_estampa(), novaQuantidade);
+        } else {
+            // Se não existe, inserir normalmente
+            Estampa nova = new Estampa();
+            nova.setNome(nome);
+            nova.setQuantidade(quantidade);
+            nova.setId_colecao(id_colecao);
+            dao.inserir(nova);
+        }
 
         response.sendRedirect("dashboard");
     }

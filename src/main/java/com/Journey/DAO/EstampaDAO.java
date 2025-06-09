@@ -119,4 +119,46 @@ public class EstampaDAO {
             return false;
         }
     }
+
+    public Estampa buscarPorNomeEColecao(String nome, int idColecao) {
+        String sql = "SELECT * FROM Estampa WHERE LOWER(nome) = LOWER(?) AND id_colecao = ?";
+        try (Connection con = ConexaoBanco.getConexao();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, nome);
+            stmt.setInt(2, idColecao);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Estampa e = new Estampa();
+                e.setId_estampa(rs.getInt("estampa_id"));
+                e.setNome(rs.getString("nome"));
+                e.setQuantidade(rs.getInt("quantidade"));
+                e.setId_colecao(rs.getInt("id_colecao"));
+                return e;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar estampa por nome e coleção: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public boolean atualizarQuantidade(int idEstampa, int novaQuantidade) {
+        String sql = "UPDATE Estampa SET quantidade = ? WHERE estampa_id = ?";
+
+        try (Connection con = ConexaoBanco.getConexao();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setInt(1, novaQuantidade);
+            stmt.setInt(2, idEstampa);
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar quantidade da estampa: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

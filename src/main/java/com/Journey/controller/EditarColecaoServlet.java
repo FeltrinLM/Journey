@@ -28,43 +28,39 @@ public class EditarColecaoServlet extends HttpServlet {
         }
     }
 
-    // Salva a edição
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println(">> Entrou no doPost de EditarColecaoServlet");
+        int id = Integer.parseInt(request.getParameter("id"));
+        String nome = request.getParameter("nome");
+        String data_inicio = request.getParameter("data_inicio");
+        String data_fim = request.getParameter("data_fim");
 
-        try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            String nome = request.getParameter("nome");
-            String dataInicio = request.getParameter("data_inicio");
-            String dataFim = request.getParameter("data_fim");
+        ColecaoDAO dao = new ColecaoDAO();
 
-            System.out.println("ID recebido: " + id);
-            System.out.println("Nome: " + nome);
-            System.out.println("Data início: " + dataInicio);
-            System.out.println("Data fim: " + dataFim);
+        // Buscar coleção atual no banco pra comparar o nome antigo
+        Colecao atual = dao.buscarPorId(id);
 
-            Colecao c = new Colecao();
-            c.setId_colecao(id);
-            c.setNome(nome);
-            c.setData_inicio(dataInicio);
-            c.setData_fim(dataFim);
-
-            boolean sucesso = new ColecaoDAO().atualizar(c);
-
-            if (sucesso) {
-                System.out.println("Coleção atualizada com sucesso.");
-            } else {
-                System.out.println("Falha ao atualizar coleção.");
-            }
-
-            response.sendRedirect("dashboard");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("dashboard"); // fallback
+        // Se o nome foi alterado, a gente precisa verificar se já existe outro igual
+        if (!nome.equalsIgnoreCase(atual.getNome()) && dao.nomeExiste(nome)) {
+            request.setAttribute("colecao", atual);
+            request.setAttribute("erro", "Já existe uma coleção com esse nome.");
+            request.getRequestDispatcher("editar-colecao.jsp").forward(request, response);
+            return;
         }
+
+        // Continua normalmente com a atualização
+        Colecao nova = new Colecao();
+        nova.setId_colecao(id);
+        nova.setNome(nome);
+        nova.setData_inicio(data_inicio);
+        nova.setData_fim(data_fim);
+
+        dao.atualizar(nova);
+
+        response.sendRedirect("dashboard");
     }
+
+
 }

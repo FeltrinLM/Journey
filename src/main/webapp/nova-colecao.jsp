@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,16 @@
 <body>
 
 <h2>Cadastrar Nova Coleção</h2>
+
+<%-- Exibir mensagem de erro, se houver --%>
+<%
+    String erro = (String) request.getAttribute("erro");
+    if (erro != null) {
+%>
+<p style="color:red;"><%= erro %></p>
+<%
+    }
+%>
 
 <form method="post" action="nova-colecao">
     Nome: <input type="text" name="nome" required><br><br>
