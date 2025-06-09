@@ -10,9 +10,37 @@
 <h2>Cadastrar Nova Peça</h2>
 
 <form method="post" action="nova-peca">
-    Tipo: <input type="text" name="tipo" required><br><br>
-    Tamanho: <input type="text" name="tamanho" required><br><br>
-    Cor: <input type="text" name="cor" required><br><br>
+    Tipo:
+    <select name="tipo" required>
+        <option value="">Selecione</option>
+        <option value="Camiseta">Camiseta</option>
+        <option value="Moletom">Moletom</option>
+        <option value="Casaco">Casaco</option>
+    </select><br><br>
+
+    Tamanho:
+    <select name="tamanho" required>
+        <option value="">Selecione</option>
+        <option value="PP">PP</option>
+        <option value="P">P</option>
+        <option value="M">M</option>
+        <option value="G">G</option>
+        <option value="GG">GG</option>
+        <option value="EXG">EXG</option>
+    </select><br><br>
+
+    Cor:
+    <select name="cor" required>
+        <option value="">Selecione</option>
+        <option value="Preto">Preto</option>
+        <option value="Branco">Branco</option>
+        <option value="Amarelo">Amarelo</option>
+        <option value="Azul marinho">Azul marinho</option>
+        <option value="Off white">Off white</option>
+        <option value="Vermelho">Vermelho</option>
+        <option value="Roxo">Roxo</option>
+    </select><br><br>
+
     Quantidade: <input type="number" name="quantidade" required><br><br>
 
     <input type="submit" value="Salvar"

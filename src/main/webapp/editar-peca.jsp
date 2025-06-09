@@ -6,6 +6,10 @@
         response.sendRedirect("dashboard");
         return;
     }
+
+    String[] tamanhos = {"PP", "P", "M", "G", "GG", "EXG"};
+    String[] tipos = {"Camiseta", "Moletom", "Casaco"};
+    String[] cores = {"Preto", "Branco", "Amarelo", "Azul marinho", "Off white", "Vermelho", "Roxo"};
 %>
 
 <!DOCTYPE html>
@@ -21,9 +25,27 @@
 <form method="post" action="editar-peca">
     <input type="hidden" name="peca_id" value="<%= peca.getPeca_id() %>">
 
-    Tipo: <input type="text" name="tipo" value="<%= peca.getTipo() %>" required><br><br>
-    Tamanho: <input type="text" name="tamanho" value="<%= peca.getTamanho() %>" required><br><br>
-    Cor: <input type="text" name="cor" value="<%= peca.getCor() %>" required><br><br>
+    Tipo:
+    <select name="tipo" required>
+        <% for (String t : tipos) { %>
+        <option value="<%= t %>" <%= t.equals(peca.getTipo()) ? "selected" : "" %>><%= t %></option>
+        <% } %>
+    </select><br><br>
+
+    Tamanho:
+    <select name="tamanho" required>
+        <% for (String t : tamanhos) { %>
+        <option value="<%= t %>" <%= t.equals(peca.getTamanho()) ? "selected" : "" %>><%= t %></option>
+        <% } %>
+    </select><br><br>
+
+    Cor:
+    <select name="cor" required>
+        <% for (String c : cores) { %>
+        <option value="<%= c %>" <%= c.equals(peca.getCor()) ? "selected" : "" %>><%= c %></option>
+        <% } %>
+    </select><br><br>
+
     Quantidade: <input type="number" name="quantidade" value="<%= peca.getQuantidade() %>" required><br><br>
 
     <input type="submit" value="Salvar alterações"
