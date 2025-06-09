@@ -129,4 +129,51 @@ public class PecaDAO {
             return false;
         }
     }
+    // Verifica se já existe uma peça com mesmo tipo, tamanho e cor
+    public Peca buscarPorAtributos(String tipo, String tamanho, String cor) {
+        String sql = "SELECT * FROM Peca WHERE tipo = ? AND tamanho = ? AND cor = ?";
+        try (Connection con = ConexaoBanco.getConexao();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, tipo);
+            stmt.setString(2, tamanho);
+            stmt.setString(3, cor);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Peca p = new Peca();
+                    p.setPeca_id(rs.getInt("peca_id"));
+                    p.setTipo(rs.getString("tipo"));
+                    p.setTamanho(rs.getString("tamanho"));
+                    p.setCor(rs.getString("cor"));
+                    p.setQuantidade(rs.getInt("quantidade"));
+                    return p;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar peça por atributos: " + e.getMessage());
+        }
+
+        return null;
+    }
+
+    // Atualiza apenas a quantidade de uma peça existente
+    public boolean atualizarQuantidade(int pecaId, int novaQuantidade) {
+        String sql = "UPDATE Peca SET quantidade = ? WHERE peca_id = ?";
+
+        try (Connection con = ConexaoBanco.getConexao();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setInt(1, novaQuantidade);
+            stmt.setInt(2, pecaId);
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar quantidade da peça: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

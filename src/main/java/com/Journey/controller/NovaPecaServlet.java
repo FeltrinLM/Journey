@@ -1,3 +1,4 @@
+// NovaPecaServlet.java
 package com.Journey.controller;
 
 import com.Journey.DAO.PecaDAO;
@@ -19,16 +20,22 @@ public class NovaPecaServlet extends HttpServlet {
         String cor = request.getParameter("cor");
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
 
-        Peca peca = new Peca();
-        peca.setTipo(tipo);
-        peca.setTamanho(tamanho);
-        peca.setCor(cor);
-        peca.setQuantidade(quantidade); // 👈 faltava isso
-
         PecaDAO dao = new PecaDAO();
-        dao.inserir(peca);
+        Peca existente = dao.buscarPorAtributos(tipo, tamanho, cor);
+
+        if (existente != null) {
+            int novaQuantidade = existente.getQuantidade() + quantidade;
+            existente.setQuantidade(novaQuantidade);
+            dao.atualizar(existente);
+        } else {
+            Peca nova = new Peca();
+            nova.setTipo(tipo);
+            nova.setTamanho(tamanho);
+            nova.setCor(cor);
+            nova.setQuantidade(quantidade);
+            dao.inserir(nova);
+        }
 
         response.sendRedirect("dashboard");
     }
-
 }

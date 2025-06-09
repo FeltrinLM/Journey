@@ -36,15 +36,30 @@ public class EditarPecaServlet extends HttpServlet {
         String cor = request.getParameter("cor");
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
 
-        Peca peca = new Peca();
-        peca.setPeca_id(id);
-        peca.setTipo(tipo);
-        peca.setTamanho(tamanho);
-        peca.setCor(cor);
-        peca.setQuantidade(quantidade);
-
         PecaDAO dao = new PecaDAO();
-        dao.atualizar(peca);
+
+        // Verifica se existe outra peça com os mesmos atributos (sem considerar a peça atual)
+        Peca duplicada = dao.buscarPorAtributos(tipo, tamanho, cor);
+
+        if (duplicada != null && duplicada.getPeca_id() != id) {
+            // Existe uma peça diferente com os mesmos atributos → somar
+            int novaQuantidade = duplicada.getQuantidade() + quantidade;
+            dao.atualizarQuantidade(duplicada.getPeca_id(), novaQuantidade);
+
+            // Excluir a peça atual (a que o usuário estava editando)
+            dao.excluir(id);
+
+        } else {
+            // Não existe duplicata, então só atualiza normalmente
+            Peca atualizada = new Peca();
+            atualizada.setPeca_id(id);
+            atualizada.setTipo(tipo);
+            atualizada.setTamanho(tamanho);
+            atualizada.setCor(cor);
+            atualizada.setQuantidade(quantidade);
+
+            dao.atualizar(atualizada);
+        }
 
         response.sendRedirect("dashboard");
     }
