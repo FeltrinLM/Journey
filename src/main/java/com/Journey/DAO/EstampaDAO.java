@@ -9,7 +9,9 @@ public class EstampaDAO {
 
     public List<Estampa> listar() {
         List<Estampa> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Estampa";
+        String sql = "SELECT e.*, c.nome AS nome_colecao " +
+                "FROM Estampa e " +
+                "JOIN Colecao c ON e.id_colecao = c.id_colecao";
 
         try (Connection con = ConexaoBanco.getConexao();
              PreparedStatement stmt = con.prepareStatement(sql);
@@ -21,6 +23,7 @@ public class EstampaDAO {
                 e.setNome(rs.getString("nome"));
                 e.setQuantidade(rs.getInt("quantidade"));
                 e.setId_colecao(rs.getInt("id_colecao"));
+                e.setNomeColecao(rs.getString("nome_colecao")); // <-- novo
                 lista.add(e);
             }
 
@@ -30,6 +33,7 @@ public class EstampaDAO {
 
         return lista;
     }
+
 
     public Estampa buscarPorId(int id) {
         String sql = "SELECT * FROM Estampa WHERE estampa_id = ?";

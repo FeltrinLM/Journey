@@ -101,7 +101,7 @@
     <tr>
         <th>Nome</th>
         <th>Quantidade</th>
-        <th>ID Coleção</th>
+        <th>Coleção</th> <!-- agora com o nome -->
         <th>Ações</th>
     </tr>
     <% if (estampas != null) {
@@ -109,14 +109,13 @@
     <tr>
         <td><%= e.getNome() %></td>
         <td><%= e.getQuantidade() %></td>
-        <td><%= e.getId_colecao() %></td>
+        <td><%= e.getNomeColecao() %></td> <!-- nome da coleção -->
         <td>
             <form method="post" action="dashboard" style="display:inline;">
                 <input type="hidden" name="acao" value="excluir-estampa">
                 <input type="hidden" name="id" value="<%= e.getId_estampa() %>">
                 <input type="submit" value="Excluir" style="background-color:red; color:white;">
             </form>
-            <!-- Editar -->
             <form method="get" action="editar-estampa" style="display:inline;">
                 <input type="hidden" name="estampa_id" value="<%= e.getId_estampa() %>">
                 <input type="submit" value="Editar" style="background-color:blue; color:white;">
@@ -128,7 +127,6 @@
 <form method="get" action="nova-estampa.jsp">
     <input type="submit" value="Adicionar nova estampa" style="background-color:green; color:white;">
 </form>
-
 
 </body>
 </html>

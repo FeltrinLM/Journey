@@ -5,6 +5,7 @@ public class Estampa {
     private int id_colecao;
     private String nome;
     private int quantidade;
+    private String nomeColecao;
 
     public Estampa(){}
 
@@ -38,5 +39,13 @@ public class Estampa {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public String getNomeColecao() {
+        return nomeColecao;
+    }
+
+    public void setNomeColecao(String nomeColecao) {
+        this.nomeColecao = nomeColecao;
     }
 }

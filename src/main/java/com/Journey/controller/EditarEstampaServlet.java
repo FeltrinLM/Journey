@@ -1,12 +1,14 @@
 package com.Journey.controller;
 
+import com.Journey.DAO.ColecaoDAO;
 import com.Journey.DAO.EstampaDAO;
+import com.Journey.model.Colecao;
 import com.Journey.model.Estampa;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.*;
 import java.io.IOException;
+import java.util.List;
 
 public class EditarEstampaServlet extends HttpServlet {
 
@@ -15,12 +17,13 @@ public class EditarEstampaServlet extends HttpServlet {
             throws ServletException, IOException {
         int idEstampa = Integer.parseInt(request.getParameter("estampa_id"));
 
-
         EstampaDAO dao = new EstampaDAO();
         Estampa estampa = dao.buscarPorId(idEstampa);
 
         if (estampa != null) {
+            List<Colecao> colecoes = new ColecaoDAO().listar();
             request.setAttribute("estampa", estampa);
+            request.setAttribute("colecoes", colecoes);
             request.getRequestDispatcher("editar-estampa.jsp").forward(request, response);
         } else {
             response.sendRedirect("dashboard");
