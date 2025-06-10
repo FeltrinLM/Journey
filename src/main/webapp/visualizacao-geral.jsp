@@ -22,111 +22,121 @@
 <head>
     <meta charset="UTF-8">
     <title>Visualização Geral</title>
+    <link rel="stylesheet" href="CSS/visualizacao-geral.css">
 </head>
 <body>
 
 <h2>Bem-vindo, <%= usuario.getNome() %></h2>
 
-<!-- Lista de Peças -->
-<h3>Lista de Peças</h3>
-<table border="1">
-    <tr>
-        <th>Tipo</th>
-        <th>Tamanho</th>
-        <th>Cor</th>
-        <th>Quantidade</th>
-        <th>Ações</th>
-    </tr>
-    <% if (pecas != null) {
-        for (Peca p : pecas) { %>
-    <tr>
-        <td><%= p.getTipo() %></td>
-        <td><%= p.getTamanho() %></td>
-        <td><%= p.getCor() %></td>
-        <td><%= p.getQuantidade() %></td>
-        <td>
-            <form method="post" action="dashboard" style="display:inline;">
-                <input type="hidden" name="acao" value="excluir">
-                <input type="hidden" name="id" value="<%= p.getPeca_id() %>">
-                <input type="submit" value="Excluir" style="background-color:red; color:white;">
-            </form>
-            <form method="get" action="editar-peca" style="display:inline;">
-                <input type="hidden" name="id" value="<%= p.getPeca_id() %>">
-                <input type="submit" value="Editar" style="background-color:blue; color:white;">
-            </form>
-        </td>
-    </tr>
-    <%  }} %>
-</table>
-<form action="nova-peca.jsp" method="get">
-    <input type="submit" value="Adicionar nova peça" style="background-color:green; color:white;">
-</form>
+<div class="section">
+    <h3>Lista de Peças</h3>
+    <table>
+        <tr>
+            <th>Tipo</th>
+            <th>Tamanho</th>
+            <th>Cor</th>
+            <th>Quantidade</th>
+            <th>Ações</th>
+        </tr>
+        <% if (pecas != null) {
+            for (Peca p : pecas) { %>
+        <tr>
+            <td><%= p.getTipo() %></td>
+            <td><%= p.getTamanho() %></td>
+            <td><%= p.getCor() %></td>
+            <td><%= p.getQuantidade() %></td>
+            <td class="btn-group">
+                <form method="post" action="dashboard">
+                    <input type="hidden" name="acao" value="excluir">
+                    <input type="hidden" name="id" value="<%= p.getPeca_id() %>">
+                    <input type="submit" value="Excluir" class="btn-excluir">
+                </form>
+                <form method="get" action="editar-peca">
+                    <input type="hidden" name="id" value="<%= p.getPeca_id() %>">
+                    <input type="submit" value="Editar" class="btn-editar">
+                </form>
+            </td>
+        </tr>
+        <%  }} %>
+    </table>
+    <div class="btn-wrapper">
+        <form action="nova-peca.jsp" method="get">
+            <input type="submit" value="Cadastrar nova peça" class="btn-add">
+        </form>
+    </div>
+</div>
 
-<!-- Lista de Coleções -->
-<h3>Lista de Coleções</h3>
-<table border="1">
-    <tr>
-        <th>Nome</th>
-        <th>Data Início</th>
-        <th>Data Fim</th>
-        <th>Ações</th>
-    </tr>
-    <% if (colecoes != null) {
-        for (Colecao c : colecoes) { %>
-    <tr>
-        <td><%= c.getNome() %></td>
-        <td><%= c.getData_inicio() %></td>
-        <td><%= c.getData_fim() %></td>
-        <td>
-            <form method="post" action="dashboard" style="display:inline;">
-                <input type="hidden" name="acao" value="excluir-colecao">
-                <input type="hidden" name="id" value="<%= c.getId_colecao() %>">
-                <input type="submit" value="Excluir" style="background-color:red; color:white;">
-            </form>
-            <form method="get" action="editar-colecao" style="display:inline;">
-                <input type="hidden" name="id" value="<%= c.getId_colecao() %>">
-                <input type="submit" value="Editar" style="background-color:blue; color:white;">
-            </form>
-        </td>
-    </tr>
-    <%  }} %>
-</table>
-<form method="get" action="nova-colecao.jsp">
-    <input type="submit" value="Cadastrar nova coleção" style="background-color:green; color:white;">
-</form>
+<div class="section">
+    <h3>Lista de Coleções</h3>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Data Início</th>
+            <th>Data Fim</th>
+            <th>Ações</th>
+        </tr>
+        <% if (colecoes != null) {
+            for (Colecao c : colecoes) { %>
+        <tr>
+            <td><%= c.getNome() %></td>
+            <td><%= c.getData_inicio() %></td>
+            <td><%= c.getData_fim() %></td>
+            <td class="btn-group">
+                <form method="post" action="dashboard">
+                    <input type="hidden" name="acao" value="excluir-colecao">
+                    <input type="hidden" name="id" value="<%= c.getId_colecao() %>">
+                    <input type="submit" value="Excluir" class="btn-excluir">
+                </form>
+                <form method="get" action="editar-colecao">
+                    <input type="hidden" name="id" value="<%= c.getId_colecao() %>">
+                    <input type="submit" value="Editar" class="btn-editar">
+                </form>
+            </td>
+        </tr>
+        <%  }} %>
+    </table>
+    <div class="btn-wrapper">
+        <form method="get" action="nova-colecao.jsp">
+            <input type="submit" value="Cadastrar nova coleção" class="btn-add">
+        </form>
+    </div>
+</div>
 
-<!-- Lista de Estampas -->
-<h3>Lista de Estampas</h3>
-<table border="1">
-    <tr>
-        <th>Nome</th>
-        <th>Quantidade</th>
-        <th>Coleção</th> <!-- agora com o nome -->
-        <th>Ações</th>
-    </tr>
-    <% if (estampas != null) {
-        for (Estampa e : estampas) { %>
-    <tr>
-        <td><%= e.getNome() %></td>
-        <td><%= e.getQuantidade() %></td>
-        <td><%= e.getNomeColecao() %></td> <!-- nome da coleção -->
-        <td>
-            <form method="post" action="dashboard" style="display:inline;">
-                <input type="hidden" name="acao" value="excluir-estampa">
-                <input type="hidden" name="id" value="<%= e.getId_estampa() %>">
-                <input type="submit" value="Excluir" style="background-color:red; color:white;">
-            </form>
-            <form method="get" action="editar-estampa" style="display:inline;">
-                <input type="hidden" name="estampa_id" value="<%= e.getId_estampa() %>">
-                <input type="submit" value="Editar" style="background-color:blue; color:white;">
-            </form>
-        </td>
-    </tr>
-    <%  }} %>
-</table>
-<form method="get" action="nova-estampa.jsp">
-    <input type="submit" value="Adicionar nova estampa" style="background-color:green; color:white;">
-</form>
+<div class="section">
+    <h3>Lista de Estampas</h3>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Quantidade</th>
+            <th>Coleção</th>
+            <th>Ações</th>
+        </tr>
+        <% if (estampas != null) {
+            for (Estampa e : estampas) { %>
+        <tr>
+            <td><%= e.getNome() %></td>
+            <td><%= e.getQuantidade() %></td>
+            <td><%= e.getNomeColecao() %></td>
+            <td class="btn-group">
+                <form method="post" action="dashboard">
+                    <input type="hidden" name="acao" value="excluir-estampa">
+                    <input type="hidden" name="id" value="<%= e.getId_estampa() %>">
+                    <input type="submit" value="Excluir" class="btn-excluir">
+                </form>
+                <form method="get" action="editar-estampa">
+                    <input type="hidden" name="estampa_id" value="<%= e.getId_estampa() %>">
+                    <input type="submit" value="Editar" class="btn-editar">
+                </form>
+            </td>
+        </tr>
+        <%  }} %>
+    </table>
+    <div class="btn-wrapper">
+        <form method="get" action="nova-estampa.jsp">
+            <input type="submit" value="Cadastrar nova estampa" class="btn-add">
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Nova Peça</title>
+    <link rel="stylesheet" href="CSS/nova-peca.css">
 </head>
 <body>
 

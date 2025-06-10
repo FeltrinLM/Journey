@@ -17,6 +17,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Peça</title>
+    <link rel="stylesheet" href="CSS/editar-peca.css">
 </head>
 <body>
 

@@ -18,6 +18,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Estampa</title>
+    <link rel="stylesheet" href="CSS/editar-estampa.css">
 </head>
 <body>
 

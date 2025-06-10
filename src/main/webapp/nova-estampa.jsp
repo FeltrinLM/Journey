@@ -22,6 +22,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Nova Estampa</title>
+    <link rel="stylesheet" href="CSS/nova-estampa.css">
 </head>
 <body>
 

@@ -4,29 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="CSS/login.css">
 </head>
 <body>
 
-<h2>Entrar no sistema</h2>
+<div class="form-container">
+    <h2>Entrar no sistema</h2>
 
-<form action="login" method="post">
-    <label>Email: <input type="email" name="email" required /></label><br><br>
-    <label>Senha: <input type="password" name="senha" required /></label><br><br>
+    <form action="login" method="post">
+        <label>Email:<br>
+            <input type="email" name="email" required />
+        </label><br>
 
-    <input type="submit" value="Entrar"
-           style="background-color: #007bff; color: white; padding: 8px 15px; border: none; cursor: pointer;" />
-</form>
+        <label>Senha:<br>
+            <input type="password" name="senha" required />
+        </label><br>
 
+        <% if (request.getAttribute("erro") != null) { %>
+        <p class="mensagem-erro" id="erro-msg"><%= request.getAttribute("erro") %></p>
+        <script>
+            setTimeout(() => {
+                const msg = document.getElementById('erro-msg');
+                if (msg) msg.style.display = 'none';
+            }, 5000);
+        </script>
+        <% } %>
 
-<% if (request.getAttribute("erro") != null) { %>
-<p style="color: red;"><%= request.getAttribute("erro") %></p>
-<% } %>
-
-<!-- Botão Voltar -->
-<form action="index.jsp" method="get">
-    <input type="submit" value="Voltar"
-           style="margin-top: 10px; background-color: gray; color: white; padding: 6px 12px; border: none; cursor: pointer;" />
-</form>
+        <div class="button-group">
+            <button type="button" class="btn-voltar" onclick="window.location.href='index.jsp'">Voltar</button>
+            <input type="submit" value="Entrar" class="btn-entrar" />
+        </div>
+    </form>
+</div>
 
 </body>
 </html>
