@@ -17,44 +17,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Peça</title>
-    <link rel="stylesheet" href="CSS/editar-peca.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/editar-peca.css">
 </head>
 <body>
 
-<h2>Editar Peça</h2>
+<div class="form-container">
+    <h2>Editar Peça</h2>
 
-<form method="post" action="editar-peca">
-    <input type="hidden" name="peca_id" value="<%= peca.getPeca_id() %>">
+    <form method="post" action="editar-peca">
+        <input type="hidden" name="peca_id" value="<%= peca.getPeca_id() %>">
 
-    Tipo:
-    <select name="tipo" required>
-        <% for (String t : tipos) { %>
-        <option value="<%= t %>" <%= t.equals(peca.getTipo()) ? "selected" : "" %>><%= t %></option>
-        <% } %>
-    </select><br><br>
+        <label>Tipo:</label>
+        <select name="tipo" required>
+            <% for (String t : tipos) { %>
+            <option value="<%= t %>" <%= t.equals(peca.getTipo()) ? "selected" : "" %>><%= t %></option>
+            <% } %>
+        </select>
 
-    Tamanho:
-    <select name="tamanho" required>
-        <% for (String t : tamanhos) { %>
-        <option value="<%= t %>" <%= t.equals(peca.getTamanho()) ? "selected" : "" %>><%= t %></option>
-        <% } %>
-    </select><br><br>
+        <label>Tamanho:</label>
+        <select name="tamanho" required>
+            <% for (String t : tamanhos) { %>
+            <option value="<%= t %>" <%= t.equals(peca.getTamanho()) ? "selected" : "" %>><%= t %></option>
+            <% } %>
+        </select>
 
-    Cor:
-    <select name="cor" required>
-        <% for (String c : cores) { %>
-        <option value="<%= c %>" <%= c.equals(peca.getCor()) ? "selected" : "" %>><%= c %></option>
-        <% } %>
-    </select><br><br>
+        <label>Cor:</label>
+        <select name="cor" required>
+            <% for (String c : cores) { %>
+            <option value="<%= c %>" <%= c.equals(peca.getCor()) ? "selected" : "" %>><%= c %></option>
+            <% } %>
+        </select>
 
-    Quantidade: <input type="number" name="quantidade" value="<%= peca.getQuantidade() %>" required><br><br>
+        <label>Quantidade:</label>
+        <input type="number" name="quantidade" value="<%= peca.getQuantidade() %>" required>
 
-    <input type="submit" value="Salvar alterações"
-           style="background-color: green; color: white; padding: 10px 15px; border: none; cursor: pointer;">
-</form>
-
-<br>
-<a href="dashboard">Cancelar</a>
+        <div class="btn-container">
+            <a href="dashboard" class="btn-voltar">Voltar</a>
+            <button type="submit" class="btn-salvar">Salvar alterações</button>
+        </div>
+    </form>
+</div>
 
 </body>
 </html>

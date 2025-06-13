@@ -33,13 +33,26 @@ body {
     border-radius: 4px;
 }
 
-.btn-salvar {
-    background-color: green;
-    color: white;
-    padding: 10px 20px;
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-salvar,
+.btn-voltar {
+    padding: 8px 16px;
+    font-size: 14px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.btn-salvar {
+    background-color: green;
+    color: white;
+    width: 150px;
 }
 
 .btn-salvar:hover {
@@ -47,12 +60,15 @@ body {
 }
 
 .btn-voltar {
-    display: inline-block;
-    margin-top: 10px;
-    color: #007BFF;
+    background-color: red;
+    color: white;
     text-decoration: none;
+    display: inline-block;
+    line-height: 26px;
+    text-align: center;
+    width: 100px;
 }
 
 .btn-voltar:hover {
-    text-decoration: underline;
+    background-color: #990000;
 }

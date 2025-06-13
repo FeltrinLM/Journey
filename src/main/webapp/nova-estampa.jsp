@@ -12,7 +12,7 @@
 
     List<Colecao> colecoes = (List<Colecao>) request.getAttribute("colecoes");
     if (colecoes == null) {
-        response.sendRedirect("nova-estampa"); // Garante que o servlet carrega os dados
+        response.sendRedirect("nova-estampa");
         return;
     }
 %>
@@ -22,31 +22,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Nova Estampa</title>
-    <link rel="stylesheet" href="CSS/nova-estampa.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/nova-estampa.css">
 </head>
 <body>
 
-<h2>Adicionar Nova Estampa</h2>
+<div class="form-container">
+    <h2>Adicionar Nova Estampa</h2>
 
-<form action="nova-estampa" method="post">
-    Nome: <input type="text" name="nome" required><br>
-    Quantidade: <input type="number" name="quantidade" required><br>
+    <form action="nova-estampa" method="post">
+        <label>Nome:</label>
+        <input type="text" name="nome" required>
 
-    Coleção:
-    <select name="id_colecao" required>
-        <option value="">Selecione uma coleção</option>
-        <% for (Colecao c : colecoes) { %>
-        <option value="<%= c.getId_colecao() %>"><%= c.getNome() %></option>
-        <% } %>
-    </select><br>
+        <label>Quantidade:</label>
+        <input type="number" name="quantidade" required>
 
-    <input type="submit" value="Cadastrar">
-</form>
+        <label>Coleção:</label>
+        <select name="id_colecao" required>
+            <option value="">Selecione uma coleção</option>
+            <% for (Colecao c : colecoes) { %>
+            <option value="<%= c.getId_colecao() %>"><%= c.getNome() %></option>
+            <% } %>
+        </select>
 
-<br>
-<form action="dashboard" method="get">
-    <input type="submit" value="Cancelar">
-</form>
+        <div class="btn-container">
+            <a href="dashboard" class="btn-voltar">Voltar</a>
+            <button type="submit" class="btn-salvar">Cadastrar</button>
+        </div>
+    </form>
+</div>
 
 </body>
 </html>
