@@ -18,26 +18,6 @@ public class UsuarioDAO {
         }
     }
 
-    public boolean atualizar(Usuario usuario) throws SQLException, ClassNotFoundException {
-        String sql = "UPDATE Usuario SET nome = ?, email = ?, senha = ? WHERE usuario_id = ?";
-        try (Connection conn = ConexaoBanco.getConexao();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, usuario.getNome());
-            stmt.setString(2, usuario.getEmail());
-            stmt.setString(3, usuario.getSenha());
-            stmt.setInt(4, usuario.getId_usuario());
-            return stmt.executeUpdate() > 0;
-        }
-    }
-
-    public boolean excluir(int id) throws SQLException, ClassNotFoundException {
-        String sql = "DELETE FROM Usuario WHERE usuario_id = ?";
-        try (Connection conn = ConexaoBanco.getConexao();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            return stmt.executeUpdate() > 0;
-        }
-    }
 
     public List<Usuario> listar() throws SQLException, ClassNotFoundException {
         String sql = "SELECT usuario_id, nome, email, senha FROM usuario";
@@ -57,24 +37,6 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-    public Usuario buscarPorId(int id) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT usuario_id, nome, email, senha FROM USAURIO WHERE usuario_id = ?";
-        try (Connection conn = ConexaoBanco.getConexao();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    Usuario u = new Usuario();
-                    u.setid_usuario(rs.getInt("usuario_id"));
-                    u.setNome(rs.getString("nome"));
-                    u.setEmail(rs.getString("email"));
-                    u.setSenha(rs.getString("senha"));
-                    return u;
-                }
-            }
-        }
-        return null;
-    }
 
     public Usuario buscarPorEmail(String email) throws SQLException, ClassNotFoundException {
         String sql = "SELECT usuario_id, nome, email, senha FROM USUARIO WHERE email = ?";
