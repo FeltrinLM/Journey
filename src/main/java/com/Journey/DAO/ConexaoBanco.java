@@ -6,9 +6,13 @@ import java.sql.SQLException;
 
 public class ConexaoBanco {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/POOW1";
-    private static final String USUARIO = "postgres";
-    private static final String SENHA = "1234";
+    private static final String DEFAULT_URL = "jdbc:postgresql://localhost:5432/POOW1";
+    private static final String DEFAULT_USUARIO = "postgres";
+    private static final String DEFAULT_SENHA = "1234";
+
+    private static final String URL = System.getenv().getOrDefault("JDBC_DATABASE_URL", DEFAULT_URL);
+    private static final String USUARIO = System.getenv().getOrDefault("JDBC_DATABASE_USER", DEFAULT_USUARIO);
+    private static final String SENHA = System.getenv().getOrDefault("JDBC_DATABASE_PASSWORD", DEFAULT_SENHA);
 
     public static Connection getConexao() {
         try {
