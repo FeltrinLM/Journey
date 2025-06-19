@@ -2,13 +2,9 @@ package com.Journey.controller;
 
 import com.Journey.DAO.ColecaoDAO;
 import com.Journey.model.Colecao;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
+import jakarta.servlet.ServletException;
 import java.io.IOException;
 
 public class EditarColecaoServlet extends HttpServlet {
